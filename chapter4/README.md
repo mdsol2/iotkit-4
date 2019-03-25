@@ -20,7 +20,7 @@ MQTTブローカーは別途用意する必要がありますが、CoudMQTTサ�
 ```shell
 $ sudo raspi-config # SPIを有効にする
 $ sudo apt-get install python3-pip python3-dev python3-spidev python3-pil python3-numpy -y
-$ sudo apt-get install ttf-dejavu　fonts-takao -y
+$ sudo apt-get install ttf-dejavu fonts-takao -y
 $ sudo pip3 install unicornhathd paho-mqtt requests
 ```
 
