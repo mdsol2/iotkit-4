@@ -74,18 +74,18 @@ def change(mode):
     return True
 
 def start():
-    ```
+    '''
         スタート用の関数
         呼び出されるととりあず時計を表示する
-    ```
+    '''
     logger.debug('display initial function start.')
     change('clock')
 
 def end():
-    ```
+    '''
         処理終了用の関数
         デーモンを終了させ、unicornHatHDの表示をOFFにする。
-    ```
+    '''
     event.set()
     time.sleep(1)
     unicornhathd.off()
