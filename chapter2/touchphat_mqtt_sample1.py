@@ -27,8 +27,16 @@ TOPIC = 'button'
  
 client = mqtt.Client(protocol=mqtt.MQTTv311)
 client.username_pw_set(MQTT_USER, password=MQTT_PASSWORD)
+
+def on_connect(client, userdata, flags, code):
+    print('Status code: {0}'.format(code))
+    client.publish(
+            topic=TOPIC,
+            payload=event.name
+    )
  
 def main():
+    client.on_connect = on_connect
     client.connect(MQTT_HOST, MQTT_PORT)
     client.loop_forever()
  
