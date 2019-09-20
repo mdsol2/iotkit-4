@@ -32,7 +32,7 @@ def on_connect(client, userdata, flags, code):
     print('Status code: {0}'.format(code))
     client.publish(
             topic=TOPIC,
-            payload=event.name
+            payload="connected"
     )
  
 def main():
