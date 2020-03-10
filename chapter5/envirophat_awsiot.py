@@ -30,12 +30,22 @@ client.configureDrainingFrequency(2)
 client.configureConnectDisconnectTimeout(300)
 client.configureMQTTOperationTimeout(5)
 
+def ledOn(client, userdata, message):
+    data = json.loads(message.payload.decode('utf-8'))
+    led_state = data['state']['led']
+    if led_state:
+        envirophat.leds.on() 
+    else:
+        envirophat.leds.off()
+
 
 if __name__ == '__main__':
     from logging import StreamHandler
     logger.addHandler(StreamHandler(stream=sys.stdout))
 
     client.connect(250)
+    client.subscribe('$aws/things/'+THING_NAME+'/shadow/update/delta', 1, ledOn)
+    time.sleep(2)
 
     # main loop
     while True:
@@ -43,9 +53,11 @@ if __name__ == '__main__':
             shadow = {
                 "state": {
                     "reported": {
-                        "temperature": round(envirophat.weather.temperature(), 1) - 2,
                         "pressure": round(envirophat.weather.pressure(unit='hPa'), 1),
-                        "light": envirophat.light.light()
+                        "temperature": round(envirophat.weather.temperature(), 1) - 2,
+                        "light": envirophat.light.light(),
+                        "led": envirophat.leds.is_on(),
+                        "check_span": CHECK_SPAN
                     }
                 }
             }
